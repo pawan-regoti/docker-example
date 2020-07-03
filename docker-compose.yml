@@ -1,45 +1,11 @@
-version: '3.1'
-
+version: "2.1"
 services:
-
-  wordpress:
-    image: wordpress
-    restart: always
-    ports:
-      - 8080:80
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
+  web:
+    image: nginx
     volumes:
-      - ${PWD}/wordpress:/var/www/html
-
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
-    volumes:
-      - ${PWD}/db:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    environment:
-     - PMA_ARBITRARY=1
-     - PMA_HOST=dbs
-     - PMA_USER=exampleuser
-     - PMS_PASSWORD=examplepass
-    restart: always
-    ports:
-     - 8081:80
-#    volumes:
-#     - /sessions
-
-#volumes:
-#  wordpress:
-#  db:
+      - ${PWD}/html:/usr/share/nginx/html:ro
+    ports: 
+      - "8083:80"
+    #environment:
+    #  - NGINX_HOST=foobar.com
+    #  - NGINX_PORT=80
